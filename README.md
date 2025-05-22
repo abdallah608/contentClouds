@@ -70,21 +70,16 @@ A robust REST API built with Node.js, Express, and PostgreSQL for user managemen
 
 content-clouds/
 ├── src/
-│ ├── config/
-│ │ └── dataBase.js
-│ ├── models/
-│ │ └── user.js
-│ ├── modules/
-│ │ └── user/
-│ │ ├── controllers/
-│ │ ├── routes/
-│ │ └── validation/
-│ ├── utilities/
-│ │ ├── ApiFeature/
-│ │ └── error/
-│ └── middleware/
+│   ├── config/              # Database config (Sequelize)
+│   ├── models/              # Sequelize models
+│   ├── modules/
+│   │   └── user/            # User module (controller, routes, validation)
+│   ├── utilities/
+│   │   ├── ApiFeature/      # Pagination and filtering utility
+│   │   └── error/           # Custom error handler
+│   └── middleware/          # Middleware (if any)
 ├── .env
-├── index.js
+├── index.js                 # App entry point
 └── package.json
 
 
