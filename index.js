@@ -3,7 +3,6 @@ dotenv.config();
 import express from "express";
 import userRouter from "./src/modules/user/user.routes.js";
 import globalError from "./src/utilities/error/globalError.js";
-import appError from "./src/utilities/error/appError.js";
 import cors from "cors";
 import morgan from "morgan";
 import db from "./src/config/dataBase.js";

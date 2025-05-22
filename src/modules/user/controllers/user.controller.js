@@ -74,71 +74,63 @@ export const getUserById = catchAsyncError(async (req, res, next) => {
   res.status(200).json({ data: record });
 });
 
-
-// Add these functions to your user.controller.js
-
 // Update user
 export const updateUser = catchAsyncError(async (req, res, next) => {
-    const { id } = req.params;
-    const { name, email, age, phone } = req.body;
-  
-    // First check if user exists
-    const user = await User.findByPk(id);
-    if (!user) {
-      return next(new appError("User not found.", 404));
+  const { id } = req.params;
+  const { name, email, age, phone } = req.body;
+
+  const user = await User.findByPk(id);
+  if (!user) {
+    return next(new appError("User not found.", 404));
+  }
+
+  if (email || phone) {
+    const searchQuery = [];
+
+    if (email) {
+      searchQuery.push({ email });
     }
-  
-    // Check if email or phone already exists (excluding current user)
-    if (email || phone) {
-      const searchQuery = [];
-      
-      if (email) {
-        searchQuery.push({ email });
-      }
-      if (phone) {
-        searchQuery.push({ phone });
-      }
-  
-      const existingUser = await User.findOne({
-        where: {
-          [Op.and]: [
-            { [Op.or]: searchQuery },
-            { id: { [Op.ne]: id } } // Exclude current user
-          ]
-        }
-      });
-  
-      if (existingUser) {
-        return next(new appError("Email or phone number already exists.", 400));
-      }
+    if (phone) {
+      searchQuery.push({ phone });
     }
-  
-    // Update user
-    const updatedUser = await user.update({
-      name: name || user.name,
-      email: email || user.email,
-      age: age || user.age,
-      phone: phone || user.phone
+
+    const existingUser = await User.findOne({
+      where: {
+        [Op.and]: [{ [Op.or]: searchQuery }, { id: { [Op.ne]: id } }],
+      },
     });
-  
-    res.status(200).json({
-      message: "User updated successfully",
-      data: updatedUser
-    });
+
+    if (existingUser) {
+      return next(new appError("Email or phone number already exists.", 400));
+    }
+  }
+
+  // Update user
+  const updatedUser = await user.update({
+    name: name || user.name,
+    email: email || user.email,
+    age: age || user.age,
+    phone: phone || user.phone,
   });
-  
-  // Delete user
-  export const deleteUser = catchAsyncError(async (req, res, next) => {
-    const { id } = req.params;
-  
-    const user = await User.findByPk(id);
-    if (!user) {
-      return next(new appError("User not found.", 404));
-    }
-  
-    await user.destroy();
-  
-    res.status(200).json({
-      message: "User deleted successfully"
-    });
+
+  res.status(200).json({
+    message: "User updated successfully",
+    data: updatedUser,
   });
+});
+
+// Delete user
+export const deleteUser = catchAsyncError(async (req, res, next) => {
+  const { id } = req.params;
+
+  const user = await User.findByPk(id);
+  if (!user) {
+    return next(new appError("User not found.", 404));
+  }
+
+  await user.destroy();
+
+  res.status(200).json({
+    message: "User deleted successfully",
+  });
+});

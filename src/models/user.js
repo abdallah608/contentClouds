@@ -18,7 +18,7 @@ const User = db.sequelize.define('User', {
   },
   age: {
     type: DataTypes.INTEGER,
-    allowNull: false
+    allowNull: true
   },
   phone: {
     type: DataTypes.STRING,
