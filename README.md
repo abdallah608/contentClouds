@@ -28,7 +28,7 @@ A robust REST API built with Node.js, Express, and PostgreSQL for user managemen
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/content-clouds.git
+   git clone [https://github.com/yourusername/content-clouds.git](https://github.com/abdallah608/contentClouds.git)
    cd content-clouds
    ```
 
