@@ -68,18 +68,4 @@ A robust REST API built with Node.js, Express, and PostgreSQL for user managemen
 
    ## 📦 Project Structure
 
-content-clouds/
-├── src/
-│   ├── config/              # Database config (Sequelize)
-│   ├── models/              # Sequelize models
-│   ├── modules/
-│   │   └── user/            # User module (controller, routes, validation)
-│   ├── utilities/
-│   │   ├── ApiFeature/      # Pagination and filtering utility
-│   │   └── error/           # Custom error handler
-│   └── middleware/          # Middleware (if any)
-├── .env
-├── index.js                 # App entry point
-└── package.json
-
-
+![image](https://github.com/user-attachments/assets/a12ff38b-07a9-46cc-b05d-6fdde200690a)
